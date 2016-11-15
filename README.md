@@ -1,26 +1,29 @@
+[![](https://images.microbadger.com/badges/version/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/commit/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com")
+
 # Docker SNMP Proxy
 
-Este es un 'Proxy SNMP' armado para levantar dinámicamente las variables de entorno de cada `container` levantado mediante un `docker-compose`; y con ellas armar la configuración del `SNMP Daemon` para proxear desde un único `container` múltiples `SNMP OIDs`.
+Este es un 'Proxy SNMP' armado para levantar dinámicamente las variables de entorno de cada `container` levantado mediante un `docker-compose`; y con ellas armar la configuración del `SNMP Daemon` para proxear desde un único puntu (`container`) múltiples `SNMP OIDs`.
+
+La solución esta basada en el proyecto [docker-gen](https://github.com/jwilder/docker-gen) de &copy;[Jason Wilder](https://github.com/jwilder).
 
 ---
 
-* [Requerimientos](#requerimientos)
-* Limitations
-* como se usa
-* ejemplos
-* to-do
-
-
----
-### Documentacion
-* https://sys4.de/en/blog/2015/03/11/snmp-proxy/
-* http://www.net-snmp.org/wiki/index.php/Snmpd_proxy
+* [Requirements](#requirements)
+* [Limitaciones](#requerimientos)
+* [How-to](#requerimientos)
+* [Example](#example)
+* [To-Do](#requerimientos)
 
 ---
-### Requerimientos
-
+### Requirements
+* `docker-engine` >= 1.12
+* `docker-compose` >= 1.8.1
+* Run `docker-compose` as `root` user, to be able to map `161`(udp) port.
+* Map `docker.sock`, to be able to access the `docker-engine` API.
 ---
 
+---
+### Example
 
 ```bash
 $ sudo docker-compose up
@@ -51,14 +54,10 @@ snmp-proxy    | 2016-11-15 19:34:04,809 INFO success: snmpd entered RUNNING stat
 snmp-proxy    | 2016-11-15 19:34:04,809 INFO success: docker-gen entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 [...]
 ```
----
-
 ```bash
 $ snmpget -v2c -c public localhost .1.3.6.1.2.1.1.5.0
 iso.3.6.1.2.1.1.5.0 = STRING: "snmp-host01"
 ```
-
-
 ```bash
 [...]
 snmp-host1    | Received SNMP packet(s) from UDP: [172.18.0.2]:58390->[172.18.0.3]:161
@@ -66,18 +65,10 @@ snmp-host1    |   GET message
 snmp-host1    |     -- SNMPv2-MIB::sysName.0
 [...]
 ```
-
-
----
-
-
-
 ```bash
 $ snmpget -v2c -c public localhost .1.3.6.1.2.1.1.6.0
 iso.3.6.1.2.1.1.6.0 = STRING: "Unknown (edit /etc/snmp/snmpd.conf)"
 ```
-
-
 ```bash
 [...]
 snmp-host2    | Received SNMP packet(s) from UDP: [172.18.0.2]:45859->[172.18.0.5]:161
@@ -85,14 +76,11 @@ snmp-host2    |   GET message
 snmp-host2    |     -- SNMPv2-MIB::sysLocation.0
 [...]
 ```
----
-
 ```bash
 $ snmpget -v2c -c public localhost .1.3.6.1.2.1.1.7.0
 iso.3.6.1.2.1.1.7.0 = No Such Instance currently exists at this OID
 
 ```
-
 ```bash
 [...]
 snmp-host3    | Received SNMP packet(s) from UDP: [172.18.0.2]:53948->[172.18.0.4]:161
