@@ -1,0 +1,45 @@
+version: '2'
+
+services:
+  snmp-proxy:
+    image: mgvazquez/snmp-proxy:v1.0.0
+    hostname: snmp-proxy01
+    container_name: snmp-proxy
+    ports:
+      - "161:161/udp"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  snmp-host1:
+    image: elcolio/net-snmp
+    hostname: snmp-host01
+    command: snmpd -Lo -f -V -c /etc/snmp/snmpd.conf
+    container_name: snmp-host1
+    ports:
+      - 161/udp
+    environment:
+      - SNMPOID_1=.1.3.6.1.2.1.1.5.0
+      - SNMPOID_2=.1.3.6.1.2.1.1.10.0
+      - SNMPOID_3=.1.3.6.1.2.1.1.11.0
+      - SNMPOID_4=.1.3.6.1.2.1.1.12.0
+      - SNMPOID_5=.1.3.6.1.2.1.1.13.0
+
+  snmp-host2:
+    image: elcolio/net-snmp
+    hostname: snmp-host02
+    command: snmpd -Lo -f -V -c /etc/snmp/snmpd.conf
+    container_name: snmp-host2
+    ports:
+      - 161/udp
+    environment:
+      - SNMPOID_1=.1.3.6.1.2.1.1.6.0
+
+  snmp-host3:
+    image: elcolio/net-snmp
+    hostname: snmp-host03
+    command: snmpd -Lo -f -V -c /etc/snmp/snmpd.conf
+    container_name: snmp-host3
+    ports:
+      - 161/udp
+    environment:
+      - SNMPOID_1=.1.3.6.1.2.1.1.7.0
