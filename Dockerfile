@@ -3,6 +3,7 @@ MAINTAINER Manuel Andres Garcia Vazquez "<mvazquez@scabb-island.com.ar"
 
 ENV PYTHON_VERSION=2.7.12-r0
 ENV PY_PIP_VERSION=8.1.2-r0
+ENV NET_SNMP_VERSION=5.7.3-r5
 ENV SUPERVISOR_VERSION=3.3.0
 ENV DOCKER_GEN_VERSION=0.7.3
 ENV DOCKER_HOST=unix:///tmp/docker.sock
@@ -18,7 +19,7 @@ ADD https://github.com/jwilder/docker-gen/releases/download/${DOCKER_GEN_VERSION
 
 RUN echo -e "http://dl-4.alpinelinux.org/alpine/latest-stable/main\n@testing http://dl-4.alpinelinux.org/alpine/edge/testing" > /etc/apk/repositories &&\
     apk add --update \
-      net-snmp \
+      net-snmp=${NET_SNMP_VERSION} \
       python=${PYTHON_VERSION} \
       py-pip=${PY_PIP_VERSION} &&\
     rm -rf /var/cache/apk/*
