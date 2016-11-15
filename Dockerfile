@@ -1,6 +1,19 @@
 FROM alpine:3.4
 MAINTAINER Manuel Andres Garcia Vazquez "<mvazquez@scabb-island.com.ar"
 
+# Build-time metadata as defined at http://label-schema.org
+  ARG BUILD_DATE
+  ARG VCS_REF
+  ARG VERSION
+  LABEL org.label-schema.build-date=$BUILD_DATE \
+        org.label-schema.name="Docker SNMP Proxy" \
+        org.label-schema.description="SNMP Proxy for docker-compose environment." \
+        org.label-schema.url="https://github.com/mgvazquez/docker-snmp-proxy" \
+        org.label-schema.vcs-ref=$VCS_REF \
+        org.label-schema.vcs-url="https://github.com/mgvazquez/docker-snmp-proxy" \
+        org.label-schema.vendor="scabb-island" \
+        org.label-schema.version=$VERSION
+
 ENV PYTHON_VERSION=2.7.12-r0
 ENV PY_PIP_VERSION=8.1.2-r0
 ENV NET_SNMP_VERSION=5.7.3-r5
