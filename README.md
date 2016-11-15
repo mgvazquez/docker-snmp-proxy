@@ -9,20 +9,29 @@ La solución esta basada en el proyecto [docker-gen](https://github.com/jwilder/
 ---
 
 * [Requirements](#requirements)
-* [Limitaciones](#requerimientos)
-* [How-to](#requerimientos)
+* [Limitations](#limitations)
+* [How-to](#how-to)
 * [Example](#example)
-* [To-Do](#requerimientos)
+* [To-Do](#to-do)
 
 ---
+
 ### Requirements
 * `docker-engine` >= 1.12
 * `docker-compose` >= 1.8.1
 * Run `docker-compose` as `root` user, to be able to map `161`(udp) port.
 * Map `docker.sock`, to be able to access the `docker-engine` API.
----
 
 ---
+
+### Limitations
+
+---
+
+### How-to
+
+---
+
 ### Example
 
 ```bash
@@ -89,3 +98,5 @@ snmp-host3    |     -- SNMPv2-MIB::sysServices.0
 [...]
 ```
 ---
+
+### To-Do
