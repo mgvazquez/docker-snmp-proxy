@@ -2,9 +2,9 @@
 
 # Docker SNMP Proxy
 
-Este es un 'Proxy SNMP' armado para levantar dinámicamente las variables de entorno de cada `container` levantado mediante un `docker-compose`; y con ellas armar la configuración del `SNMP Daemon` para proxear desde un único puntu (`container`) múltiples `SNMP OIDs`.
+This is an SNMP Proxy that collect dynamically the environment variables, with an specific prefix, of each `container` created by ` docker-compose`, and with them, set up the SNMP Daemon to fordward multiple SNMP OIDs to their recpective `container`.
 
-La solución esta basada en el proyecto [docker-gen](https://github.com/jwilder/docker-gen) de &copy;[Jason Wilder](https://github.com/jwilder).
+This solution are based on [docker-gen](https://github.com/jwilder/docker-gen) project, developed by &copy;[Jason Wilder](https://github.com/jwilder).
 
 ---
 
@@ -19,16 +19,58 @@ La solución esta basada en el proyecto [docker-gen](https://github.com/jwilder/
 ### Requirements
 * `docker-engine` >= 1.12
 * `docker-compose` >= 1.8.1
-* Run `docker-compose` as `root` user, to be able to map `161`(udp) port.
+* `docker-compose` must run as `root` user, to be able to map `161`(udp) port.
 * Map `docker.sock`, to be able to access the `docker-engine` API.
 
 ---
 
 ### Limitations
+* SNMP Community harcoded to 'public' for now
 
 ---
 
 ### How-to
+
+Lo primero que debemos hacer es configurar el composer para que la imagen 'snmp-proxy':
+
+* Tenga mapeado el puerdo 161 (udp)
+* Tenga montado el socket del docker-engine.
+
+```yaml
+services:
+  snmp-proxy:
+    image: mgvazquez/snmp-proxy
+    hostname: snmp-proxy01
+    container_name: snmp-proxy
+    ports:
+      - "161:161/udp"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+```
+
+Luego lo que debemos hacer es configurar cada container al que querramos consultar via SNMP:
+
+* Que levante el SNMP Daemon
+* Que exponga el puerdo 161 (udp)
+* Que disponibles las OIDs a consultar
+* Setear las variables de entorno con las OIDs que expondrá.
+
+```yaml
+[...]
+snmp-host1:
+  image: elcolio/net-snmp
+  hostname: snmp-host01
+  command: snmpd -Lo -f -V -c /etc/snmp/snmpd.conf
+  container_name: snmp-host1
+  ports:
+    - 161/udp
+  environment:
+    - SNMPOID_1=.1.3.6.1.2.1.1.5.0
+    - SNMPOID_2=.1.3.6.1.2.1.1.6.0
+    - SNMPOID_<n>=.x.x.x
+
+[...]
+```
 
 ---
 
@@ -100,3 +142,4 @@ snmp-host3    |     -- SNMPv2-MIB::sysServices.0
 ---
 
 ### To-Do
+* Set up SNMP Communities per host (SNMP Contexts)

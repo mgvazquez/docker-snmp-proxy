@@ -2,7 +2,7 @@ version: '2'
 
 services:
   snmp-proxy:
-    image: mgvazquez/snmp-proxy:v1.0.0
+    image: mgvazquez/snmp-proxy:1.0.0
     hostname: snmp-proxy01
     container_name: snmp-proxy
     ports:
