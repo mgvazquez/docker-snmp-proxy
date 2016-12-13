@@ -1,11 +1,27 @@
 FROM alpine:3.4
-MAINTAINER Manuel Andres Garcia Vazquez "<mvazquez@scabb-island.com.ar"
+MAINTAINER Manuel Andres Garcia Vazquez "<mvazquez@scabb-island.com.ar>"
 
-ENV PYTHON_VERSION=2.7.12-r0
-ENV PY_PIP_VERSION=8.1.2-r0
-ENV NET_SNMP_VERSION=5.7.3-r5
-ENV SUPERVISOR_VERSION=3.3.0
-ENV DOCKER_GEN_VERSION=0.7.3
+ARG BUILD_DATE
+ARG BUILD_VCS_REF
+ARG BUILD_VERSION
+ARG PYTHON_VERSION
+ARG PY_PIP_VERSION
+ARG NET_SNMP_VERSION
+ARG SUPERVISOR_VERSION
+ARG DOCKER_GEN_VERSION
+
+LABEL org.label-schema.build-date=$BUILD_DATE \
+      org.label-schema.vcs-url="https://github.com/mgvazquez/docker-snmp-proxy.git" \
+      org.label-schema.vcs-ref=$BUILD_VCS_REF \
+      org.label-schema.version=$BUILD_VERSION \
+      com.microscaling.license=Apache-2.0
+
+ENV PYTHON_VERSION=${PYTHON_VERSION:-2.7.12-r0}
+ENV PY_PIP_VERSION=${PY_PIP_VERSION:-8.1.2-r0}
+ENV NET_SNMP_VERSION=${NET_SNMP_VERSION:-5.7.3-r5}
+ENV SUPERVISOR_VERSION=${SUPERVISOR_VERSION:-3.3.0}
+ENV DOCKER_GEN_VERSION=${DOCKER_GEN_VERSION:-0.7.3}
+
 ENV DOCKER_HOST=unix:///tmp/docker.sock
 
 EXPOSE 161/udp
