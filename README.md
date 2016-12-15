@@ -1,18 +1,22 @@
-[![](https://images.microbadger.com/badges/version/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/commit/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com")
-
 # Docker SNMP Proxy
 
 This is an SNMP Proxy that collect dynamically the environment variables, with an specific prefix, of each `container` created by ` docker-compose`, and with them, set up the SNMP Daemon to fordward multiple SNMP OIDs to their recpective `container`.
 
 This solution are based on [docker-gen](https://github.com/jwilder/docker-gen) project, developed by &copy;[Jason Wilder](https://github.com/jwilder).
-
 ---
 
+* [Docker Image](#docker-image)
 * [Requirements](#requirements)
 * [Limitations](#limitations)
 * [How-to](#how-to)
 * [Example](#example)
 * [To-Do](#to-do)
+
+---
+
+### Docker Image
+
+[![](https://images.microbadger.com/badges/version/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/image/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own image badge on microbadger.com") [![](https://images.microbadger.com/badges/commit/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own version badge on microbadger.com") [![](https://images.microbadger.com/badges/license/mgvazquez/snmp-proxy.svg)](https://microbadger.com/images/mgvazquez/snmp-proxy "Get your own license badge on microbadger.com")
 
 ---
 
@@ -143,3 +147,7 @@ snmp-host3    |     -- SNMPv2-MIB::sysServices.0
 
 ### To-Do
 * Set up SNMP Communities per host (SNMP Contexts)
+
+---
+
+<p align="center"><img src="http://www.catb.org/hacker-emblem/glider.png" alt="hacker emblem"></p>

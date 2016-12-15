@@ -14,7 +14,7 @@ LABEL org.label-schema.build-date=$BUILD_DATE \
       org.label-schema.vcs-url="https://github.com/mgvazquez/docker-snmp-proxy.git" \
       org.label-schema.vcs-ref=$BUILD_VCS_REF \
       org.label-schema.version=$BUILD_VERSION \
-      com.microscaling.license=Apache-2.0
+      com.microscaling.license=GPL-3.0
 
 ENV PYTHON_VERSION=${PYTHON_VERSION:-2.7.12-r0}
 ENV PY_PIP_VERSION=${PY_PIP_VERSION:-8.1.2-r0}
