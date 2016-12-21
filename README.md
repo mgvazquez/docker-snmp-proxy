@@ -3,6 +3,7 @@
 This is an SNMP Proxy that collect dynamically the environment variables, with an specific prefix, of each `container` created by ` docker-compose`, and with them, set up the SNMP Daemon to forward multiple SNMP OIDs to their respective `container`.
 
 This solution are based on [docker-gen](https://github.com/jwilder/docker-gen) project, developed by &copy;[Jason Wilder](https://github.com/jwilder).
+
 ---
 
 * [Docker Image](#docker-image)
